@@ -1,6 +1,6 @@
 # Домашнее задание к занятию "`Система мониторинга Zabbix`" - `Шаталов Леонид Юрьевич`
 
-# Задание 1
+## Задание 1
 
 ## Установка Zabbix Server 7.0 LTS с PostgreSQL и Apache на Debian 13
 
@@ -77,76 +77,60 @@ sudo systemctl reload apache2
 Логин: Admin
 Пароль: zabbix
 
-![ скриншот авторизации в админке](https://github.com/FairDog/8-03-hw/tree/main/img/Вход в админку.png)`
+![скриншот авторизации в админке](https://github.com/FairDog/8-03-hw/blob/main/img/Вход%20в%20админку.png)
 
 
 ---
 
-### Задание 2
 
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
+## 1. Установка Zabbix Agent на ВМ2
 
 
----
+# Добавление репозитория Zabbix 7.0
+wget https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.0+debian12_all.deb
+sudo dpkg -i zabbix-release_latest_7.0+debian12_all.deb
+sudo apt update
 
-### Задание 3
+# Установка библиотек OpenLDAP 2.5 для совместимости с Debian 13
+cd /tmp
+wget http://ftp.debian.org/debian/pool/main/o/openldap/libldap-2.5-0_2.5.13+dfsg-5_amd64.deb
+sudo dpkg -i libldap-2.5-0_2.5.13+dfsg-5_amd64.deb
 
-`Приведите ответ в свободной форме........`
+cd /usr/lib/x86_64-linux-gnu/
+sudo cp liblber.so.2.0.200 liblber-2.5.so.0.0.0
+sudo ln -sf liblber-2.5.so.0.0.0 liblber-2.5.so.0
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+# Установка зависимостей
+sudo apt install -y libmodbus5
 
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
+# Скачивание и установка Zabbix Agent
+cd /tmp
+wget "http://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix/zabbix-agent_7.0.27-1+debian12_amd64.deb"
+sudo dpkg --force-depends -i zabbix-agent_7.0.27-1+debian12_amd64.deb
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+# Исправление systemd-юнита
+sudo tee /usr/lib/systemd/system/zabbix-agent.service << 'EOF'
+[Unit]
+Description=Zabbix Agent
+After=syslog.target network.target
 
-### Задание 4
+[Service]
+Type=forking
+User=zabbix
+Group=zabbix
+ExecStart=/usr/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf
+ExecStop=/bin/kill -TERM $MAINPID
+Restart=on-failure
+PIDFile=/run/zabbix/zabbix_agentd.pid
 
-`Приведите ответ в свободной форме........`
+[Install]
+WantedBy=multi-user.target
+EOF
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+sudo systemctl daemon-reload
 
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
+![ агенты подключены к серверу](https://github.com/FairDog/8-03-hw/blob/main/img/агенты подключены к серверу.png)`
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+![ Агент работает с сервером](https://github.com/FairDog/8-03-hw/blob/main/img/Агент работает с сервером.png)`
+
+![видны поступающие от агентов данные](https://github.com/FairDog/8-03-hw/blob/main/img/видны поступающие от агентов данные.png)`
