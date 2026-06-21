@@ -5,7 +5,7 @@
 
 ### Скриншот
 
-![Шаблон](https://github.com/FairDog/8-03-hw/blob/main/img/Шаблон.png)
+![Шаблон](https://github.com/FairDog/8-03-hw-Zabbix2/blob/main/img/Шаблон.png)
 
 ---
 
@@ -19,5 +19,10 @@
 
 Скриншот для заданий 2-3:
 
-![Шаблон](https://github.com/FairDog/8-03-hw/blob/main/img/Хосты.png)
+![Хосты](https://github.com/FairDog/8-03-hw-Zabbix2/blob/main/img/Хосты.png)
 
+## Задание 4
+
+Создайте свой кастомный дашборд.
+
+![Дашборд](https://github.com/FairDog/8-03-hw-Zabbix2/blob/main/img/Дашборд.png)
