@@ -76,9 +76,7 @@ sudo systemctl reload apache2
 ### 13. Вход в админку
 Логин: Admin
 Пароль: zabbix
-
-![ скриншот авторизации в админке]([https://github.com/FairDog/8-03-hw/tree/main/img/Вход в админку.png](https://github.com/FairDog/8-03-hw/blob/main/img/Вход%20в%20админку.png))`
-
+![скриншот авторизации в админке](img/Вход в админку.png)
 
 ---
 
