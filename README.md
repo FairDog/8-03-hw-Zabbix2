@@ -127,8 +127,8 @@ EOF
 
 sudo systemctl daemon-reload
 
-![ агенты подключены к серверу](https://github.com/FairDog/8-03-hw/blob/main/img/агенты%подключены%к%серверу.png)`
+![ агенты подключены к серверу](https://github.com/FairDog/8-03-hw/blob/main/img/агенты%20подключены%20к%20серверу.png)`
 
-![ Агент работает с сервером](https://github.com/FairDog/8-03-hw/blob/main/img/Агент%работает%с%сервером.png)`
+![ Агент работает с сервером](https://github.com/FairDog/8-03-hw/blob/main/img/Агент%20работает%20с%20сервером.png)`
 
-![видны поступающие от агентов данные](https://github.com/FairDog/8-03-hw/blob/main/img/видны%поступающие%от%агентов%данные.png)`
+![видны поступающие от агентов данные](https://github.com/FairDog/8-03-hw/blob/main/img/видны%20поступающие%20от%20агентов%20данные.png)`
